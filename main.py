@@ -1,9 +1,14 @@
 import sys
 import heapq
 import logging
+from tqdm import tqdm
+from itertools import permutations
+import matplotlib.pyplot as plt
 
 MAX_VALUE = sys.maxsize
-logging.basicConfig(filename='output.log', level=logging.DEBUG)
+BOLD = '\033[1m'
+END = '\033[0m'
+logging.basicConfig(filename='output.log', level=logging.INFO)
 logging.info("=================================================")
 logging.info("\n\n")
 
@@ -254,7 +259,7 @@ if __name__ == '__main__':
     print(f"No. of Explored Nodes: {len(explored_ucs)}")
     print(f"Move Cost: {path_cost_ucs}")
     print()
-    print(f"Path To Goal:")
+    print(f"Lowest Path To Goal:")
     for node in path_ucs:
         print("       ", node)
     print()
@@ -263,7 +268,7 @@ if __name__ == '__main__':
     logging.info(f"No. of Explored Nodes: {len(explored_ucs)}")
     logging.info(f"Move Cost: {path_cost_ucs}")
     logging.info("")
-    logging.info(f"Path To Goal:")
+    logging.info(f"Lowest Path To Goal:")
     for node in path_ucs:
         logging.info(f"        {node}")
     logging.info("\n\n")
@@ -275,7 +280,7 @@ if __name__ == '__main__':
     print(f"No. of Explored Nodes: {len(explored_astar)}")
     print(f"Move Cost: {path_cost_astar}")
     print()
-    print(f"Path To Goal:")
+    print(f"Lowest Path To Goal:")
     for node in path_astar:
         print("       ", node)
     print()
@@ -284,7 +289,58 @@ if __name__ == '__main__':
     logging.info(f"No. of Explored Nodes: {len(explored_astar)}")
     logging.info(f"Move Cost: {path_cost_astar}")
     logging.info("")
-    logging.info(f"Path To Goal:")
+    logging.info(f"Lowest Path To Goal:")
     for node in path_astar:
         logging.info(f"        {node}")
     logging.info("\n\n")
+    wait = input("Press Enter to continue.")
+    print()
+
+    print("============ Comparing The Costs ================")
+    logging.info("============ Comparing The Costs ================")
+    print()
+    permlist = permutations('_BBBWWW')
+    permlist = set(permlist)
+    ucs_cost = []
+    astar_cost = []
+    iterations = []
+    count = 0
+    for perm in tqdm(permlist, desc="Iterating all permutations:"):
+        input_str = "".join(perm)
+        _, explored_ucs, _ = uniform_cost_search(input_str, goalset)
+        ucs_cost.append(len(explored_ucs))
+        _, explored_astar, _ = astar_search(input_str, goalset)
+        astar_cost.append(len(explored_astar))
+        iterations.append(count)
+        count += 1
+        logging.info(
+            f"Relative Costs: String: {input_str} ucs: {ucs_cost[-1]}, A*: {astar_cost[-1]}")
+    plt.scatter(iterations, ucs_cost, label='UCS')
+    plt.scatter(iterations, astar_cost, label='A*')
+    plt.xlabel('Permutations of String')
+    plt.ylabel('No. of explored Nodes')
+    plt.title('Permuations vs Explored Node cost')
+    plt.legend(loc='upper right')
+    plt.savefig("output.png")
+    print()
+    print("Scatter Plot For Permutations vs Explored Node Cost Saved in 'output.png'!")
+    print("From 'output.png':\nWe see that Uniform Cost Search has" +
+          BOLD + " 'more' " + END + "explored nodes than A* Search.")
+    print()
+    wait = input("Press Enter to continue.")
+    print()
+
+    print("============ All Goal Configurations ================")
+    logging.info("============ All Goal Configurations ================")
+    print()
+    print("All Goal Configurations For: 'BBB_WWW'")
+    print()
+    for goal in goalset:
+        path_astar, explored_astar, path_cost_astar = astar_search(
+            'BBB_WWW', {goal})
+        print(f"Solution: {path_astar[-1]}")
+        print(f"No. of Explored Nodes: {len(explored_astar)}")
+        print(f"Move Cost: {path_cost_astar}")
+        print(f"Lowest Path To Goal:")
+        print(path_astar)
+        print()
