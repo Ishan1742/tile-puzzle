@@ -245,6 +245,7 @@ if __name__ == '__main__':
     logging.info(f"Input String: {input_str}")
 
     goalset = {"WBBB", "_BBB", "B_BB", "BB_B", "BBB_"}
+    print()
     print("============ UCS Search ================")
     logging.info("============ UCS Search ================")
     path_ucs, explored_ucs, path_cost_ucs = uniform_cost_search(
