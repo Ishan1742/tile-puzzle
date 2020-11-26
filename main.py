@@ -56,10 +56,13 @@ def uniform_cost_search(start, goalset):
     path = []
     explored_nodes = list()
 
-    for goal in goalset:
-        if start.find(goal, 3) != -1:
-            path.append(start)
-            return path, explored_nodes, 0
+    if start in goalset:
+        path.append(start)
+        return path, explored_nodes, 0
+    # for goal in goalset:
+    #     if start.find(goal, 3) != -1:
+    #         path.append(start)
+    #         return path, explored_nodes, 0
 
     path.append(start)
     path_cost = 0
@@ -70,9 +73,11 @@ def uniform_cost_search(start, goalset):
         current_node = path_till_now[-1]
         explored_nodes.append(current_node)
 
-        for goal in goalset:
-            if current_node.find(goal, 3) != -1:
-                return path_till_now, explored_nodes, path_cost_till_now
+        if current_node in goalset:
+            return path_till_now, explored_nodes, path_cost_till_now
+        # for goal in goalset:
+        #     if current_node.find(goal, 3) != -1:
+        #         return path_till_now, explored_nodes, path_cost_till_now
 
         logging.debug(
             f"Popped: {current_node} g: {path_cost_till_now}")
@@ -132,10 +137,14 @@ def get_misplaced_heuristic(current):
 def astar_search(start, goalset):
     path = []
     explored_nodes = list()
-    for goal in goalset:
-        if start.find(goal, 3) != -1:
-            path.append(start)
-            return path, explored_nodes, 0
+
+    if start in goalset:
+        path.append(start)
+        return path, explored_nodes, 0
+    # for goal in goalset:
+    #     if start.find(goal, 3) != -1:
+    #         path.append(start)
+    #         return path, explored_nodes, 0
 
     path.append(start)
     path_cost = get_white_heuristic(start)
@@ -150,9 +159,11 @@ def astar_search(start, goalset):
                               get_white_heuristic(current_node))
         explored_nodes.append(current_node)
 
-        for goal in goalset:
-            if current_node.find(goal, 3) != -1:
-                return path_till_now, explored_nodes, path_cost_till_now
+        if current_node in goalset:
+            return path_till_now, explored_nodes, path_cost_till_now
+        # for goal in goalset:
+        #     if current_node.find(goal, 3) != -1:
+        #         return path_till_now, explored_nodes, path_cost_till_now
 
         pos = current_node.find('_')
         for curr_pos in range(pos - 3, pos + 3 + 1):
@@ -231,6 +242,7 @@ if __name__ == '__main__':
     print("Example Valid Input 'BBB_WWW'")
     print("Space is replaced with '_'")
     input_str = input("Enter Valid Input: ")
+    copy_input_str = (input_str + '.')[:-1]
 
     count = input_str.count('W')
     if count < 3 or count > 3:
@@ -249,10 +261,12 @@ if __name__ == '__main__':
         exit()
     logging.info(f"Input String: {input_str}")
 
-    goalset = {"WBBB", "_BBB", "B_BB", "BB_B", "BBB_"}
+    # goalset = {"WBBB", "_BBB", "B_BB", "BB_B", "BBB_"}
+    goalset = {"_WWWBBB", "W_WWBBB", "WW_WBBB",
+               "WWW_BBB", "WWWB_BB", "WWWBB_B", "WWWBBB_"}
     print()
-    print("============ UCS Search ================")
-    logging.info("============ UCS Search ================")
+    print("============ UCS ================")
+    logging.info("============ UCS ================")
     path_ucs, explored_ucs, path_cost_ucs = uniform_cost_search(
         input_str, goalset)
     print(f"Solution: {path_ucs[-1]}")
@@ -273,7 +287,8 @@ if __name__ == '__main__':
         logging.info(f"        {node}")
     logging.info("\n\n")
 
-    print("============ AStar Search ================")
+    print("============ A* Search ================")
+    logging.info("============ A* Search ================")
     path_astar, explored_astar, path_cost_astar = astar_search(
         input_str, goalset)
     print(f"Solution: {path_astar[-1]}")
@@ -333,14 +348,16 @@ if __name__ == '__main__':
     print("============ All Goal Configurations ================")
     logging.info("============ All Goal Configurations ================")
     print()
-    print("All Goal Configurations For: 'BBB_WWW'")
+    print(f"All Goal Configurations For: '{copy_input_str}'")
     print()
     for goal in goalset:
         path_astar, explored_astar, path_cost_astar = astar_search(
-            'BBB_WWW', {goal})
+            copy_input_str, {goal})
         print(f"Solution: {path_astar[-1]}")
         print(f"No. of Explored Nodes: {len(explored_astar)}")
         print(f"Move Cost: {path_cost_astar}")
         print(f"Lowest Path To Goal:")
-        print(path_astar)
+        print(f"Lowest Path To Goal:")
+        for node in path_astar:
+            print("       ", node)
         print()
