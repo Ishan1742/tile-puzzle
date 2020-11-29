@@ -4,7 +4,24 @@
 Search based algorithms to solve a linear tiling puzzle
 
 ==================================
-### Execution
+### Installation and Execution
+==================================
+
+==================================
+### Installation directly
+==================================
+- Install matplotlib library
+```bash
+$ sudo pip3 install matplotlib
+```
+- Execute the code
+```bash
+$ cd tile-puzzle/
+$ python3 main.py
+```
+
+==================================
+### Installation using 'pipenv'
 ==================================
 - Install python virutal environment package
 ```bash
