@@ -2,6 +2,7 @@
 # tile-puzzle
 ==================================
 Search based algorithms to solve a linear tiling puzzle
+
 ==================================
 ### Execution
 ==================================
@@ -32,6 +33,7 @@ $ pipenv --rm
 - The B implies Black Tiles.
 - The W implies White Tiles.
 - The _ implies the space.
+
 ==================================
 ### Output
 ==================================
