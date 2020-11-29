@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 MAX_VALUE = sys.maxsize
 BOLD = '\033[1m'
 END = '\033[0m'
-logging.basicConfig(filename='output.log', level=logging.INFO)
+logging.basicConfig(filename='output.log', level=logging.DEBUG)
 logging.info("=================================================")
 logging.info("\n\n")
 
@@ -311,6 +311,7 @@ if __name__ == '__main__':
     wait = input("Press Enter to continue.")
     print()
 
+    logging.getLogger().setLevel(logging.INFO)
     print("============ Comparing The Costs ================")
     logging.info("============ Comparing The Costs ================")
     print()
@@ -346,9 +347,10 @@ if __name__ == '__main__':
     print()
 
     print("============ All Goal Configurations ================")
-    logging.info("============ All Goal Configurations ================")
+    logging.info("\n\n============ All Goal Configurations ================")
     print()
     print(f"All Goal Configurations For: '{copy_input_str}'")
+    logging.info(f"All Goal Configurations For: '{copy_input_str}'")
     print()
     for goal in goalset:
         path_astar, explored_astar, path_cost_astar = astar_search(
@@ -360,3 +362,11 @@ if __name__ == '__main__':
         for node in path_astar:
             print("       ", node)
         print()
+        logging.info(f"Solution: {path_astar[-1]}")
+        logging.info(f"No. of Explored Nodes: {len(explored_astar)}")
+        logging.info(f"Move Cost: {path_cost_astar}")
+        logging.info("")
+        logging.info(f"Lowest Path To Goal:")
+        for node in path_astar:
+            logging.info(f"        {node}")
+        logging.info("\n")
