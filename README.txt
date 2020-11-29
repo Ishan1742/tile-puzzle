@@ -13,7 +13,7 @@ Search based algorithms to solve a linear tiling puzzle
 - Create a virutal environment
 ```bash
 $ cd tile-puzzle/
-$ sudo -H pip3 install venv
+$ sudo apt-get install python3-venv
 $ python3 -m venv env
 $ source env/bin/activate
 ```
@@ -24,6 +24,10 @@ $ pip3 install requirements.txt
 - Execute the code
 ```bash
 $ python3 main.py
+```
+- Exit from virtual environment
+```bash
+$ deactivate
 ```
 
 ==================================
