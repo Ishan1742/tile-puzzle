@@ -10,8 +10,9 @@ Search based algorithms to solve a linear tiling puzzle
 ==================================
 ### Installation directly
 ==================================
-- Install matplotlib library
+- Install tqdm and matplotlib library
 ```bash
+$ sudo pip3 install tqdm
 $ sudo pip3 install matplotlib
 ```
 - Execute the code
