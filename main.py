@@ -357,7 +357,6 @@ if __name__ == '__main__':
         print(f"No. of Explored Nodes: {len(explored_astar)}")
         print(f"Move Cost: {path_cost_astar}")
         print(f"Lowest Path To Goal:")
-        print(f"Lowest Path To Goal:")
         for node in path_astar:
             print("       ", node)
         print()

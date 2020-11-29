@@ -24,6 +24,8 @@ $ python3 main.py
 ==================================
 ### Installation using 'pipenv'
 ==================================
+*Python 3.8 Version required*
+*Fails Otherwise*
 - Install python virutal environment package
 ```bash
 $ sudo pip3 install pipenv
