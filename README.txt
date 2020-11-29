@@ -8,7 +8,7 @@ Search based algorithms to solve a linear tiling puzzle
 ==================================
 
 ==================================
-### Installation directly
+### Installation
 ==================================
 - Create a virutal environment
 ```bash
@@ -19,7 +19,7 @@ $ source env/bin/activate
 ```
 - Install tqdm and matplotlib library
 ```bash
-$ pip3 install requirements.txt
+$ pip3 install -r requirements.txt
 ```
 - Execute the code
 ```bash
@@ -58,6 +58,7 @@ $ pipenv --rm
 ==================================
 - Input is a string indicating the start state.
 - Example input "B_BBWWW".
+- Without the quotes.
 - The B implies Black Tiles.
 - The W implies White Tiles.
 - The _ implies the space.

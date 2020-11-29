@@ -239,7 +239,7 @@ def get_frontier_params(node, frontier):
 
 if __name__ == '__main__':
 
-    print("Example Valid Input 'BBB_WWW'")
+    print("Example Valid Input BBB_WWW")
     print("Space is replaced with '_'")
     input_str = input("Enter Valid Input: ")
     copy_input_str = (input_str + '.')[:-1]
